@@ -1,3 +1,4 @@
+//ip address and buttons
 package com.samehf.alsalert
 
 import android.content.Context
@@ -34,6 +35,7 @@ class connectionFragment : Fragment(R.layout.fragment_connection) {
     private var clickHandled = false
     private lateinit var uid : String
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -42,7 +44,7 @@ class connectionFragment : Fragment(R.layout.fragment_connection) {
         val wifiTestText = view.findViewById<TextView>(R.id.wifiTestText)
         val alarmTestButton = view.findViewById<Button>(R.id.alarmTestButton)
         val alarmStopButton = view.findViewById<Button>(R.id.alarmStopButton)
-
+        //val startCalButton = view.findViewById<Button>(R.id.startCalButton)
 
         val preferences = requireActivity().getSharedPreferences("LoginPrefs", AppCompatActivity.MODE_PRIVATE)
         uid = preferences.getString("uid", null).toString()
@@ -61,6 +63,21 @@ class connectionFragment : Fragment(R.layout.fragment_connection) {
                     .update("stopAlarm", "1")
             }
         }
+
+        //calibration
+       // startCalButton.setOnClickListener {
+
+            ///This part will open the new page, hopefully
+            //val intent = Intent(activity, CalibrationInstructionsActivity::class.java)
+           // startActivity(intent)
+
+           // if (uid != null) {
+             //   db.collection("ALSAlert").document(uid)
+               //     .update("startCal", "1")
+
+
+            //}
+        //}
 
 
 

@@ -1,12 +1,10 @@
+//This one should be for creating the three app homepages
 package com.samehf.alsalert
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
-import com.google.firebase.messaging.FirebaseMessaging
 
 class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +28,9 @@ class Home : AppCompatActivity() {
         val connectionFragment = connectionFragment()
         val settingsFragment = settingsFragment()
 
+        //calibration
+        val calibrationFragment = calibrationFragment()
+
         setCurrentFragment(homeFragment)
 
         var bottomNavigationView = findViewById<NavigationBarView>(R.id.bottomNavigationView)
@@ -39,6 +40,9 @@ class Home : AppCompatActivity() {
                 R.id.home -> setCurrentFragment(homeFragment)
                 R.id.connection -> setCurrentFragment(connectionFragment)
                 R.id.settings -> setCurrentFragment(settingsFragment)
+
+                //calibrationFragment
+                R.id.calibration -> setCurrentFragment(calibrationFragment)
 
             }
             true

@@ -1,3 +1,4 @@
+//Email, password, and notification permission
 package com.samehf.alsalert
 
 import android.Manifest
@@ -16,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import kotlin.system.exitProcess
@@ -23,8 +25,7 @@ import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var firebaseAuth: FirebaseAuth;
-
+    private lateinit var firebaseAuth: FirebaseAuth;class connectionFragment : Fragment(R.layout.fragment_connection)
 
     // Declare the launcher at the top of your Activity/Fragment:
     private val requestPermissionLauncher = registerForActivityResult(
@@ -141,3 +142,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+

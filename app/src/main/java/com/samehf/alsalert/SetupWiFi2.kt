@@ -1,3 +1,4 @@
+//finishing setup and making the user
 package com.samehf.alsalert
 
 import android.Manifest
@@ -208,7 +209,7 @@ class SetupWiFi2 : AppCompatActivity() {
                 connection.requestMethod = "GET"
 
                 val inputStream = connection.inputStream
-               val reader = BufferedReader(InputStreamReader(inputStream))
+                val reader = BufferedReader(InputStreamReader(inputStream))
                 val response = reader.use(BufferedReader::readText)
 
                 onSuccess(response)

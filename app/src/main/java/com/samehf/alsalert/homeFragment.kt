@@ -1,3 +1,4 @@
+//This one should be for stopping the alarm and getting the notification and how long it has been since the last
 package com.samehf.alsalert
 import android.annotation.SuppressLint
 import android.graphics.Typeface

@@ -1,3 +1,4 @@
+//All about resetall, button and the email/pass it resets
 package com.samehf.alsalert
 
 import android.annotation.SuppressLint

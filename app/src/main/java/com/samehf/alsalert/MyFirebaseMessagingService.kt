@@ -1,3 +1,4 @@
+//Notification. Sound?
 package com.samehf.alsalert
 
 import android.annotation.SuppressLint
@@ -31,7 +32,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     @SuppressLint("MissingPermission")
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        //change to make sure channel is there?
+        createChannel()
         Log.d(TAG, "From: ${remoteMessage.from}")
+        //change to make always sound?
+        playRingtone()
 
         // Check if the message contains data
 //        if (remoteMessage.data.isNotEmpty()) {
@@ -106,7 +111,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     fun createChannel() {
         val sound =
-            Uri.parse("android.resource://" + applicationContext.packageName + "/alert2.mp3")
+            //CHANGE because ChatGPT said to
+            //Uri.parse("android.resource://" + applicationContext.packageName + "/alert2.mp3")
+            Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + applicationContext.packageName + "/" + R.raw.alert2)
         val mChannel: NotificationChannel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mChannel =
@@ -122,6 +129,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val notificationManager =
                 applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(mChannel)
+            //CHANGE to help sound maybe
+            //Uri.parse("android.resource://" + applicationContext.packageName + "/alert2.mp3")
+            Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + applicationContext.packageName + "/" + R.raw.alert2)
         }
     }
 
@@ -187,9 +197,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     object ConstantFunction {
 
         fun createNotificationChannel(
+
             context: Context,
             channelId: String,
             channelName: String,
+
         ) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val notificationManager =
@@ -209,6 +221,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 //                channel.setSound(soundUri, audioAttributes)
                 notificationManager.createNotificationChannel(channel)
+
             }
         }
     }

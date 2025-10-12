@@ -62,7 +62,7 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="20dp"
         android:text="Alarm Test"
         android:textAlignment="center"
         android:textSize="24sp"

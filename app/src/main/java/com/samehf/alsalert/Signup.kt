@@ -1,3 +1,4 @@
+//Control user sign up
 package com.samehf.alsalert
 
 import android.annotation.SuppressLint
@@ -15,7 +16,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
-
+import com.google.firebase.firestore.SetOptions
 class Signup : AppCompatActivity() {
 
     private lateinit var firebaseAuth: FirebaseAuth;
@@ -139,6 +140,7 @@ class Signup : AppCompatActivity() {
                             "stopAlarm", "0",
                             "startAlarm", "0",
                             "resetAll", "0",
+                            "startCal", "0",
                         )
                             .addOnSuccessListener {
                                 // Successfully updated the document
@@ -147,8 +149,16 @@ class Signup : AppCompatActivity() {
                                 // Handle the error
                                 // e.printStackTrace()
                             }
+
+                        //more my own stuff
+                        val data = hashMapOf("startCal" to 0)
+
+                        db.collection("ALSAlert").document("uid")
+                            .set(data, SetOptions.merge())
+
                     } else {
                         // Document doesn't exist, create a new document with the FCM token
+                        val pleaseWork = FirebaseFirestore.getInstance()
                         val data = hashMapOf(
                             "token" to fcmToken,
                             "timezone" to TimeZone.getDefault().getID(),
@@ -156,8 +166,13 @@ class Signup : AppCompatActivity() {
                             "stopAlarm" to "0",
                             "startAlarm" to "0",
                             "resetAll" to "0",
+                            "startCal" to "0",
 
                         )
+                        pleaseWork.collection("ALSAlert").document("uid")
+                            .set(data)
+                            .addOnSuccessListener { /* Success handler */ }
+                            .addOnFailureListener { /* Error handler */ }
 
                         userDocument.set(data)
                             .addOnSuccessListener {
