@@ -323,12 +323,10 @@ UserData Initialize() {
   }
 
   if (maxIdx > 2) {
-    int maxCount = 0;
     for(int i = 1; i < maxIdx; i++){
       userMax += maxVs[i];
-      maxCount++;
     }
-    userMax /= maxCount;
+    userMax /= (maxIdx-2);
     userMax -= (userMax-512)*percentOffset;
   } else {
     userMax = 800;
