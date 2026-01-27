@@ -164,9 +164,43 @@ void setup() {
     WiFi.softAP(ssid, password);
     server.begin();
     Serial.println("Access Point started.");
-   
+    
   }
 }
+
+// //YOYOYO, this is test code to try out adding startCal to the Firebase
+
+// //initialize functions
+
+// void addFieldToFirestore(const String &collectionRef, const String &fieldName, const String &value){
+//   //Collection, Document based on the user, field
+// //   Firebase.Firestore.getDocument("uid").Set({{"startCal", FieldValue::String("0")}}, SetOptions::Merge());
+// //     .OnCompletion([](const Future<void>& future) {
+// //       if (future.error() == Error::kErrorOk) {
+// //         std::cout << "DocumentSnapshot successfully written!" << std::endl;
+// //       } else {
+// //         std::cout << "Error writing document: " << future.error_message()
+// //                   << std::endl;
+// //       }
+// //     });
+// // }
+// // Define the collection and document you want to update
+//   String documentPath = "ALSAlert/uid";  // Example: users is your collection and uid is the document ID
+  
+//   // Prepare the data to update the document
+//   FirebaseJson json;
+//   json.set("startCal", "0");  // Set the field "startCal" to "0"
+
+//   // Update the document in Firestore
+//   if (Firebase.Firestore.getDocument(fbdo, documentPath, &json)) {
+//     Serial.println("Document successfully updated!");
+//   } else {
+//     Serial.println("Error updating document: " + Firebase.error());
+//   }
+// }
+
+// //end of this line of test
+
 
 void loop() {
   if(storedSSID.length() <= 0){
@@ -186,7 +220,6 @@ void loop() {
         while (!client.available()) {            // Wait until the client sends some data
           // delay(1);
         }
-       
         String request = client.readStringUntil('\r');
         Serial.println(request);
         client.flush();
@@ -266,9 +299,21 @@ void checkTest() {
 
     setFirestoreValue("stopAlarm","0");
     alarmTriggered = false;
-   
+
     }
-   
+
+    //Code to set the startCal to 0 to verify it reads through
+    jsonData.clear();
+        payload.get(jsonData, "fields/startCal/stringValue", true);
+        if(jsonData.stringValue == "1"){
+          Serial.println("Calibration Stopped! Setting to 0");
+
+        setFirestoreValue("startCal","0");
+        alarmTriggered = false;
+
+    }
+
+
     jsonData.clear();
     payload.get(jsonData, "fields/resetAll/stringValue", true);
     if(jsonData.stringValue == "1"){
