@@ -1,4 +1,5 @@
 //http://192.168.4.1/?ssid=Sameh&password=1481976Wa&email=sam@a.com&epassword=123123
+//This combined_code is the code combined from EOG_D1_MINI_FINAL and the FinalFirebase
 
 #include <ESP8266WiFi.h>
 #include <EEPROM.h>
