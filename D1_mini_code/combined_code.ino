@@ -403,6 +403,7 @@ void getWifiInfo() {
   }
 }
 
+// resetWifInfo rewrites the wifi data in the EEPROM storage. This is called when the user wants to rewrite the wifi data of the device.
 void resetWifiInfo(WiFiClient &client, String request) {
  
   if (client) {                             // If a new client connects
