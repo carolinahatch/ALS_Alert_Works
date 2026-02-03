@@ -310,6 +310,11 @@ void loop() {
         // Call your function here
         checkTest();
       }
+
+      if (request.indexOf("ssid=") != -1 && request.indexOf("password=") != -1) {
+        resetWifiInfo(client, request);
+      }
+
     //Send a response to the client. Keeps it from refreshing and sending more than once.
         client.println("HTTP/1.1 200 OK");
         client.println("Content-Type: text/html");
@@ -390,6 +395,17 @@ void checkTest() {
     
     }    
 
+        //Code to set the startCal to 0 to verify it reads through
+    jsonData.clear();
+        payload.get(jsonData, "fields/startCal/stringValue", true);
+        if(jsonData.stringValue == "1"){
+          Serial.println("Calibration Stopped! Setting to 0");
+
+        setFirestoreValue("startCal","0");
+        alarmTriggered = false;
+
+    }
+
   }
 }
 
@@ -433,6 +449,53 @@ void getWifiInfo() {
         String emailStr = request.substring(emailIndex + 7, epassIndex);
         String epassStr = request.substring(epassIndex + 11, htmlIndex);
     
+        Serial.println(ssidStr);
+        Serial.println("pass:" + passStr + ":END");
+        Serial.println("email:" + emailStr + ":END");
+        Serial.println("epass:" + epassStr + ":END");
+
+        // Save SSID and password to EEPROM
+        writeEEPROM(ssidAddr, ssidStr);
+        writeEEPROM(passAddr, passStr);
+        writeEEPROM(emailAddr, emailStr);
+        writeEEPROM(epassAddr, epassStr);
+
+        // Restart ESP8266
+        ESP.restart();
+      }
+    }
+  }
+}
+    
+// resetWifInfo rewrites the wifi data in the EEPROM storage. This is called when the user wants to rewrite the wifi data of the device.
+void resetWifiInfo(WiFiClient &client, String request) {
+ 
+  if (client) {                             // If a new client connects
+    Serial.println("New Client.");
+    while (!client.available()) {            // Wait until the client sends some data
+      delay(1);
+    }
+
+    Serial.println(request);
+    client.flush();
+
+    // Check if request contains WiFi credentials
+    if (request.indexOf("ssid=") != -1 && request.indexOf("password=") != -1) {
+      // Parse SSID and password from the request
+      int ssidIndex = request.indexOf("ssid=");
+      int passIndex = request.indexOf("&password=");
+      int emailIndex = request.indexOf("&email=");
+      int epassIndex = request.indexOf("&epassword=");
+      int htmlIndex = request.indexOf(" HTTP/1.1");
+
+    if (ssidIndex != -1 && passIndex != -1) {
+      // Extract SSID and password from the request string
+        String ssidStr = request.substring(ssidIndex + 5, passIndex);
+        ssidStr.replace("%20"," ");
+        String passStr = request.substring(passIndex + 10, emailIndex);
+        String emailStr = request.substring(emailIndex + 7, epassIndex);
+        String epassStr = request.substring(epassIndex + 11, htmlIndex);
+   
         Serial.println(ssidStr);
         Serial.println("pass:" + passStr + ":END");
         Serial.println("email:" + emailStr + ":END");
