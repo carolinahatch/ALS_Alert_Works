@@ -41,11 +41,13 @@ const int ssidMaxLen = 32; // Maximum length of SSID
 const int passMaxLen = 64; // Maximum length of password
 const int emailMaxLen = 64; // Maximum length of SSID
 const int epassMaxLen = 64; // Maximum length of password
+const int successMaxLen = 32; // Maximum length of success
 
 const int ssidAddr = 0; // Address to store SSID in EEPROM
-const int passAddr = 32; // Address to store password in EEPROM
-const int emailAddr = 64; // Address to store SSID in EEPROM
-const int epassAddr = 96; // Address to store password in EEPROM
+const int passAddr = ssidMaxLen; // Address to store password in EEPROM
+const int emailAddr = ssidMaxLen + passMaxLen; // Address to store SSID in EEPROM
+const int epassAddr = ssidMaxLen + passMaxLen + emailMaxLen; // Address to store password in EEPROM
+const int successAddr = ssidMaxLen + passMaxLen + emailMaxLen + epassMaxLen; // Address to store password in EEPROM
 
 int val;
 int t = 0;
@@ -104,17 +106,6 @@ String path;
 const char* ssid = "ALS Alert";
 const char* password = "";
 
-//const int ssidMaxLen = 32; // Maximum length of SSID
-//const int passMaxLen = 64; // Maximum length of password
-//const int emailMaxLen = 64; // Maximum length of SSID
-//const int epassMaxLen = 64; // Maximum length of password
-const int successMaxLen = 32; // Maximum length of success
-
-const int ssidAddr = 0; // Address to store SSID in EEPROM
-const int passAddr = ssidMaxLen; // Address to store password in EEPROM
-const int emailAddr = ssidMaxLen + passMaxLen; // Address to store SSID in EEPROM
-const int epassAddr = ssidMaxLen + passMaxLen + emailMaxLen; // Address to store password in EEPROM
-const int successAddr = ssidMaxLen + passMaxLen + emailMaxLen + epassMaxLen; // Address to store password in EEPROM
 
 bool buttonPressed = false;
 const int buttonPin = 4;
